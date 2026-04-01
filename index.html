@@ -894,6 +894,13 @@
       </div>
     </div>
 
+    <!-- 
+      Щоб додати новий проект:
+      1. Скопіюйте блок <div class="project-card reveal">...</div> нижче.
+      2. Додайте опис та теги.
+      3. Збережіть зображення як 8.png (згідно з чергою).
+      Скрипт автоматично поставить номер #8 і підтягне картинку 8.png.
+    -->
   </div>
 </section>
 
@@ -1037,8 +1044,12 @@
     const imgEl = card.querySelector('.project-screenshot');
     
     if (numSpan) numSpan.textContent = `#${num}`;
-    if (imgEl && !imgEl.src) {
-      imgEl.src = `${num}.png`;
+    if (imgEl) {
+      // Set image if src is empty or not set correctly
+      const currentSrc = imgEl.getAttribute('src');
+      if (!currentSrc || currentSrc === '') {
+        imgEl.src = `${num}.png`;
+      }
     }
   });
 
