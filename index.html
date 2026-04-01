@@ -101,6 +101,41 @@
       cursor: pointer;
     }
 
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: var(--surface2);
+      border-radius: 100px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      padding: 4px 10px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 100px;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .lang-btn:hover:not(.active) {
+      color: var(--accent);
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
     .nav-links {
       display: flex;
       gap: 32px;
@@ -798,10 +833,16 @@
       </svg>
     </button>
     <ul class="nav-links">
-      <li><a href="#projects">Проєкти</a></li>
-      <li><a href="#skills">Навички</a></li>
-      <li><a href="#about">Підхід</a></li>
-      <li><a href="Ovsiannykov_CV.pdf" class="nav-cta" download>↓ Резюме</a></li>
+      <li><a href="#projects" data-i18n="nav_projects">Проєкти</a></li>
+      <li><a href="#skills" data-i18n="nav_skills">Навички</a></li>
+      <li><a href="#about" data-i18n="nav_about">Підхід</a></li>
+      <li><a href="Ovsiannykov_CV.pdf" class="nav-cta" download data-i18n="nav_resume">↓ Резюме</a></li>
+      <li class="lang-switcher-wrapper">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="uk">UK</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+      </li>
     </ul>
   </nav>
 
@@ -811,24 +852,24 @@
     <div class="hero-bg-circle c2"></div>
     <div class="hero-grid">
       <div class="hero-content">
-        <div class="hero-eyebrow">Доступний для проєктів</div>
-        <h1>
+        <div class="hero-eyebrow" data-i18n="hero_eyebrow">Доступний для проєктів</div>
+        <h1 data-i18n="hero_title">
           Automation<br>
           Engineer &<br>
           <span>AI Builder</span>
         </h1>
-        <p class="hero-desc">
+        <p class="hero-desc" data-i18n="hero_desc">
           Перетворюю ідеї на працюючі інструменти — браузерні розширення, локальні застосунки, cross-platform утиліти.
           Весь стек освоєний самостійно через практику та AI-assisted розробку.
         </p>
         <div class="hero-actions">
-          <a href="#projects" class="btn-primary">
+          <a href="#projects" class="btn-primary" data-i18n="hero_view_projects">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
             Переглянути проєкти
           </a>
-          <a href="Ovsiannykov_CV.pdf" class="btn-secondary" download>
+          <a href="Ovsiannykov_CV.pdf" class="btn-secondary" download data-i18n="hero_resume">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
@@ -859,7 +900,7 @@
             </svg>
             LinkedIn
           </a>
-          <span class="contact-item">
+          <span class="contact-item" data-i18n="hero_location">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
               <circle cx="12" cy="10" r="3" />
@@ -873,26 +914,26 @@
         <div class="hero-stat-grid">
           <div class="stat-card">
             <div class="stat-number">7</div>
-            <div class="stat-label">Проєктів<br>завершено</div>
+            <div class="stat-label" data-i18n="stat_projects">Проєктів<br>завершено</div>
           </div>
           <div class="stat-card">
             <div class="stat-number">3</div>
-            <div class="stat-label">Платформи<br>підтримки</div>
+            <div class="stat-label" data-i18n="stat_platforms">Платформи<br>підтримки</div>
           </div>
           <div class="stat-card">
             <div class="stat-number">5+</div>
-            <div class="stat-label">Мов &<br>технологій</div>
+            <div class="stat-label" data-i18n="stat_tech">Мов &<br>технологій</div>
           </div>
           <div class="stat-card">
             <div class="stat-number">0</div>
-            <div class="stat-label">Хмарних<br>залежностей</div>
+            <div class="stat-label" data-i18n="stat_cloud">Хмарних<br>залежностей</div>
           </div>
         </div>
         <div class="ai-badge">
           <div class="ai-badge-icon">🤖</div>
           <div class="ai-badge-text">
-            <strong>AI-assisted розробка</strong>
-            <span>Claude · ChatGPT · Cursor — щоденний робочий стек</span>
+            <strong data-i18n="ai_badge_title">AI-assisted розробка</strong>
+            <span data-i18n="ai_badge_subtitle">Claude · ChatGPT · Cursor — щоденний робочий стек</span>
           </div>
         </div>
       </div>
@@ -904,9 +945,9 @@
   <!-- PROJECTS -->
   <section id="projects">
     <div class="section-header reveal">
-      <div class="section-label">Портфоліо</div>
-      <h2 class="section-title">Розроблені рішення</h2>
-      <p class="section-desc">Реальні інструменти, які вирішують конкретні задачі. Кожен проєкт — від ідеї до готового
+      <div class="section-label" data-i18n="portfolio_label">Портфоліо</div>
+      <h2 class="section-title" data-i18n="portfolio_title">Розроблені рішення</h2>
+      <p class="section-desc" data-i18n="portfolio_desc">Реальні інструменти, які вирішують конкретні задачі. Кожен проєкт — від ідеї до готового
         продукту.</p>
     </div>
 
@@ -919,7 +960,7 @@
         </div>
         <div class="project-body">
           <div class="project-title">macOS Keyboard Layout Sound Notifier</div>
-          <p class="project-desc">Утиліта для підвищення зручності роботи, яка озвучує поточну розкладку клавіатури при
+          <p class="project-desc" data-i18n="project1_desc">Утиліта для підвищення зручності роботи, яка озвучує поточну розкладку клавіатури при
             перемиканні (наприклад, “укр” / “ен”), допомагаючи уникати помилок при наборі тексту. Підтримує незалежне
             керування гучністю та збереження налаштувань.</p>
           <div class="tech-tags">
@@ -937,7 +978,7 @@
         </div>
         <div class="project-body">
           <div class="project-title">YouTube Bookmarks Saver v3.1</div>
-          <p class="project-desc">Браузерне розширення для Chrome/Edge/Brave/Opera. Зберігає закладки YouTube-відео з
+          <p class="project-desc" data-i18n="project2_desc">Браузерне розширення для Chrome/Edge/Brave/Opera. Зберігає закладки YouTube-відео з
             точними тайм-штампами локально. Без хмарних сервісів — повна приватність.</p>
           <div class="tech-tags">
             <span class="tag">JavaScript</span>
@@ -954,7 +995,7 @@
         </div>
         <div class="project-body">
           <div class="project-title">VLC Video Bookmarks Extension</div>
-          <p class="project-desc">Cross-platform розширення для VLC: автопошук файлів з мітками, підтримка MM:SS та
+          <p class="project-desc" data-i18n="project3_desc">Cross-platform розширення для VLC: автопошук файлів з мітками, підтримка MM:SS та
             H:MM:SS, кирилиця та UTF-8. Інтуїтивний dropdown для навігації по відео.</p>
           <div class="tech-tags">
             <span class="tag">Python</span>
@@ -971,7 +1012,7 @@
         </div>
         <div class="project-body">
           <div class="project-title">Quiz Builder Pro v2.0</div>
-          <p class="project-desc">Локальний HTML-застосунок для генерації анонімних онлайн-опитувань. Перетворює JSON з
+          <p class="project-desc" data-i18n="project4_desc">Локальний HTML-застосунок для генерації анонімних онлайн-опитувань. Перетворює JSON з
             питаннями на готовий веб-додаток на базі Google Apps Script з автоформуванням структури Google Таблиць.</p>
           <div class="tech-tags">
             <span class="tag">HTML/JS</span>
@@ -988,7 +1029,7 @@
         </div>
         <div class="project-body">
           <div class="project-title">Web-DLP — медіа-дашборд</div>
-          <p class="project-desc">Веб-інтерфейс для yt-dlp + FFmpeg: завантаження відео до 4K з YouTube, автоматичне
+          <p class="project-desc" data-i18n="project5_desc">Веб-інтерфейс для yt-dlp + FFmpeg: завантаження відео до 4K з YouTube, автоматичне
             вбудовування субтитрів, об'єднання відео/аудіо потоків. Мінімалістичний UI без хмарних залежностей.</p>
           <div class="tech-tags">
             <span class="tag">Python</span>
@@ -1006,7 +1047,7 @@
         </div>
         <div class="project-body">
           <div class="project-title">Smart PDF Converter & Cleaner</div>
-          <p class="project-desc">SPA для конвертації PDF презентацій NotebookLM у зображення, видалення ватермарок і
+          <p class="project-desc" data-i18n="project6_desc">SPA для конвертації PDF презентацій NotebookLM у зображення, видалення ватермарок і
             штампів, експорту в
             ZIP/PDF/PPTX. Вся обробка відбувається локально в браузері — 100% конфіденційність.</p>
           <div class="tech-tags">
@@ -1025,7 +1066,7 @@
         </div>
         <div class="project-body">
           <div class="project-title">QuizNLM — офлайн тести з NotebookLM</div>
-          <p class="project-desc">Браузерне розширення, що парсить квізи з NotebookLM через iframe + postMessage,
+          <p class="project-desc" data-i18n="project7_desc">Браузерне розширення, що парсить квізи з NotebookLM через iframe + postMessage,
             зберігає локально та дозволяє проходити офлайн з перевіркою відповідей та екраном результатів.</p>
           <div class="tech-tags">
             <span class="tag">JavaScript</span>
@@ -1051,39 +1092,39 @@
   <!-- SKILLS -->
   <section id="skills">
     <div class="section-header reveal">
-      <div class="section-label">Технічний стек</div>
-      <h2 class="section-title">Навички</h2>
-      <p class="section-desc">Увесь стек освоєний самостійно через практику — без формальної ІТ-освіти.</p>
+      <div class="section-label" data-i18n="skills_label">Технічний стек</div>
+      <h2 class="section-title" data-i18n="skills_title">Навички</h2>
+      <p class="section-desc" data-i18n="skills_desc">Увесь стек освоєний самостійно через практику — без формальної ІТ-освіти.</p>
     </div>
 
     <div class="skills-wrapper">
       <div class="skill-card reveal">
         <span class="skill-icon">🤖</span>
-        <div class="skill-name">AI-інструменти</div>
-        <div class="skill-detail">Claude, ChatGPT, Cursor — щоденне використання для розробки, дебагінгу та
+        <div class="skill-name" data-i18n="skill1_title">AI-інструменти</div>
+        <div class="skill-detail" data-i18n="skill1_desc">Claude, ChatGPT, Cursor — щоденне використання для розробки, дебагінгу та
           автоматизації процесів</div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">💻</span>
-        <div class="skill-name">Мови програмування</div>
-        <div class="skill-detail">Python, JavaScript, HTML/CSS, Bash, Bat — базово-практичний рівень на всіх платформах
+        <div class="skill-name" data-i18n="skill2_title">Мови програмування</div>
+        <div class="skill-detail" data-i18n="skill2_desc">Python, JavaScript, HTML/CSS, Bash, Bat — базово-практичний рівень на всіх платформах
         </div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">🧩</span>
-        <div class="skill-name">Браузерні розширення</div>
-        <div class="skill-detail">Chrome Extension API, IndexedDB, postMessage, Content Scripts — 3 завершених
+        <div class="skill-name" data-i18n="skill3_title">Браузерні розширення</div>
+        <div class="skill-detail" data-i18n="skill3_desc">Chrome Extension API, IndexedDB, postMessage, Content Scripts — 3 завершених
           розширення</div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">⚙️</span>
-        <div class="skill-name">Інструменти & Утиліти</div>
-        <div class="skill-detail">FFmpeg, yt-dlp, VLC Lua API, Google Apps Script, PDF.js, JSZip</div>
+        <div class="skill-name" data-i18n="skill4_title">Інструменти & Утиліти</div>
+        <div class="skill-detail" data-i18n="skill4_desc">FFmpeg, yt-dlp, VLC Lua API, Google Apps Script, PDF.js, JSZip</div>
       </div>
       <div class="skill-card wide reveal">
         <span class="skill-icon">🖥️</span>
-        <div class="skill-name">Операційні системи та адміністрування</div>
-        <div class="skill-detail">Windows, macOS, Linux — багатий досвід адміністрування та розробки на всіх трьох
+        <div class="skill-name" data-i18n="skill5_title">Операційні системи та адміністрування</div>
+        <div class="skill-detail" data-i18n="skill5_desc">Windows, macOS, Linux — багатий досвід адміністрування та розробки на всіх трьох
           платформах. Розуміння архітектури ОС, системних API, автоматизації через скрипти</div>
       </div>
     </div>
@@ -1094,29 +1135,29 @@
   <!-- APPROACH -->
   <section id="about">
     <div class="section-header reveal">
-      <div class="section-label">Підхід</div>
-      <h2 class="section-title">Як я працюю</h2>
+      <div class="section-label" data-i18n="about_label">Підхід</div>
+      <h2 class="section-title" data-i18n="about_title">Як я працюю</h2>
     </div>
 
     <div class="approach-grid">
       <div class="approach-card reveal">
-        <div class="approach-title">🎓 Self-taught</div>
-        <p class="approach-text">Увесь технічний стек освоєний самостійно через практику. Відсутність формальної освіти
+        <div class="approach-title" data-i18n="approach1_title">🎓 Self-taught</div>
+        <p class="approach-text" data-i18n="approach1_desc">Увесь технічний стек освоєний самостійно через практику. Відсутність формальної освіти
           — це не обмеження, а доказ здатності самостійно ставити задачі та доводити їх до результату.</p>
       </div>
       <div class="approach-card reveal">
-        <div class="approach-title">⚡ Швидке навчання</div>
-        <p class="approach-text">Легко адаптуюся до нових мов, платформ та інструментів. Мова і стек — лише засоби. Якщо
+        <div class="approach-title" data-i18n="approach2_title">⚡ Швидке навчання</div>
+        <p class="approach-text" data-i18n="approach2_desc">Легко адаптуюся до нових мов, платформ та інструментів. Мова і стек — лише засоби. Якщо
           задача вимагає нового інструменту — освоюю його в процесі роботи.</p>
       </div>
       <div class="approach-card reveal">
-        <div class="approach-title">🔧 Системне мислення</div>
-        <p class="approach-text">Оптимізую процеси навколо себе: якщо щось можна автоматизувати — автоматизую. Кожен із
+        <div class="approach-title" data-i18n="approach3_title">🔧 Системне мислення</div>
+        <p class="approach-text" data-i18n="approach3_desc">Оптимізую процеси навколо себе: якщо щось можна автоматизувати — автоматизую. Кожен із
           7 проєктів — відповідь на конкретну реальну потребу, а не навчальна вправа.</p>
       </div>
       <div class="approach-card reveal">
-        <div class="approach-title">🔒 Privacy-first</div>
-        <p class="approach-text">Перевага локальним рішенням. Жодного зайвого трафіку, жодних хмарних залежностей там,
+        <div class="approach-title" data-i18n="approach4_title">🔒 Privacy-first</div>
+        <p class="approach-text" data-i18n="approach4_desc">Перевага локальним рішенням. Жодного зайвого трафіку, жодних хмарних залежностей там,
           де це можливо. Ваші дані — у вас.</p>
       </div>
     </div>
@@ -1124,8 +1165,8 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-name">Костянтин Овсянников</div>
-    <div style="font-size:0.875rem; margin-bottom:4px;">Automation Engineer · AI-Powered Development</div>
+    <div class="footer-name" data-i18n="footer_name">Костянтин Овсянников</div>
+    <div style="font-size:0.875rem; margin-bottom:4px;" data-i18n="footer_tagline">Automation Engineer · AI-Powered Development</div>
     <div class="footer-links">
       <a href="mailto:kinstintin38@gmail.com">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1141,21 +1182,21 @@
         </svg>
         +380 98 553 54 15
       </a>
-      <a href="https://github.com/Kostyaov" target="_blank">
+      <a href="https://github.com/Kostyaov" target="_blank" data-i18n="footer_github">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path
             d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
         </svg>
         GitHub
       </a>
-      <a href="https://www.linkedin.com/in/костянтин-овсянников-85306838b/" target="_blank">
+      <a href="https://www.linkedin.com/in/костянтин-овсянников-85306838b/" target="_blank" data-i18n="footer_linkedin">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
           <circle cx="4" cy="4" r="2" />
         </svg>
         LinkedIn
       </a>
-      <a href="Ovsiannykov_CV.pdf" download>
+      <a href="Ovsiannykov_CV.pdf" download data-i18n="footer_resume">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
           <polyline points="7 10 12 15 17 10" />
@@ -1164,11 +1205,160 @@
         Завантажити резюме
       </a>
     </div>
-    <div class="footer-copy">© 2026 Костянтин Овсянників · Житомир, Україна</div>
+    <div class="footer-copy" data-i18n="footer_copy">© 2026 Костянтин Овсянників · Житомир, Україна</div>
   </footer>
 
   <script>
-    // Scroll reveal
+    // ── TRANSLATIONS ──
+    const translations = {
+      uk: {
+        nav_projects: "Проєкти",
+        nav_skills: "Навички",
+        nav_about: "Підхід",
+        nav_resume: "↓ Резюме",
+        hero_eyebrow: "Доступний для проєктів",
+        hero_title: "Automation<br>Engineer &<br><span>AI Builder</span>",
+        hero_desc: "Перетворюю ідеї на працюючі інструменти — браузерні розширення, локальні застосунки, cross-platform утиліти. Весь стек освоєний самостійно через практику та AI-assisted розробку.",
+        hero_view_projects: "Переглянути проєкти",
+        hero_resume: "Завантажити резюме",
+        hero_location: "Житомир, Україна",
+        stat_projects: "Проєктів<br>завершено",
+        stat_platforms: "Платформи<br>підтримки",
+        stat_tech: "Мов &<br>технологій",
+        stat_cloud: "Хмарних<br>залежностей",
+        ai_badge_title: "AI-assisted розробка",
+        ai_badge_subtitle: "Claude · ChatGPT · Cursor — щоденний робочий стек",
+        portfolio_label: "Портфоліо",
+        portfolio_title: "Розроблені рішення",
+        portfolio_desc: "Реальні інструменти, які вирішують конкретні задачі. Кожен проєкт — від ідеї до готового продукту.",
+        project1_desc: "Утиліта для підвищення зручності роботи, яка озвучує поточну розкладку клавіатури при перемиканні (наприклад, “укр” / “ен”), допомагаючи уникати помилок при наборі тексту. Підтримує незалежне керування гучністю та збереження налаштувань.",
+        project2_desc: "Браузерне розширення для Chrome/Edge/Brave/Opera. Зберігає закладки YouTube-відео з точними тайм-штампами локально. Без хмарних сервісів — повна приватність.",
+        project3_desc: "Cross-platform розширення для VLC: автопошук файлів з мітками, підтримка MM:SS та H:MM:SS, кирилиця та UTF-8. Інтуїтивний dropdown для навігації по відео.",
+        project4_desc: "Локальний HTML-застосунок для генерації анонімних онлайн-опитувань. Перетворює JSON з питаннями на готовий веб-додаток на базі Google Apps Script з автоформуванням структури Google Таблиць.",
+        project5_desc: "Веб-інтерфейс для yt-dlp + FFmpeg: завантаження відео до 4K з YouTube, автоматичне вбудовування субтитрів, об'єднання відео/аудіо потоків. Мінімалістичний UI без хмарних залежностей.",
+        project6_desc: "SPA для конвертації PDF презентацій NotebookLM у зображення, видалення ватермарок і штампів, експорту в ZIP/PDF/PPTX. Вся обробка відбувається локально в браузері — 100% конфіденційність.",
+        project7_desc: "Браузерне розширення, що парсить квізи з NotebookLM через iframe + postMessage, зберігає локально та дозволяє проходити офлайн з перевіркою відповідей та екраном результатів.",
+        skills_label: "Технічний стек",
+        skills_title: "Навички",
+        skills_desc: "Увесь стек освоєний самостійно через практику — без формальної ІТ-освіти.",
+        skill1_title: "AI-інструменти",
+        skill1_desc: "Claude, ChatGPT, Cursor — щоденне використання для розробки, дебагінгу та автоматизації процесів",
+        skill2_title: "Мови програмування",
+        skill2_desc: "Python, JavaScript, HTML/CSS, Bash, Bat — базово-практичний рівень на всіх платформах",
+        skill3_title: "Браузерні розширення",
+        skill3_desc: "Chrome Extension API, IndexedDB, postMessage, Content Scripts — 3 завершених розширення",
+        skill4_title: "Інструменти & Утиліти",
+        skill4_desc: "FFmpeg, yt-dlp, VLC Lua API, Google Apps Script, PDF.js, JSZip",
+        skill5_title: "Операційні системи та адміністрування",
+        skill5_desc: "Windows, macOS, Linux — багатий досвід адміністрування та розробки на всіх трьох платформах. Розуміння архітектури ОС, системних API, автоматизації через скрипти",
+        about_label: "Підхід",
+        about_title: "Як я працюю",
+        approach1_title: "🎓 Self-taught",
+        approach1_desc: "Увесь технічний стек освоєний самостійно через практику. Відсутність формальної освіти — це не обмеження, а доказ здатності самостійно ставити задачі та доводити їх до результату.",
+        approach2_title: "⚡ Швидке навчання",
+        approach2_desc: "Легко адаптуюся до нових мов, платформ та інструментів. Мова і стек — лише засоби. Якщо задача вимагає нового інструменту — освоюю його в процесі роботи.",
+        approach3_title: "🔧 Системне мислення",
+        approach3_desc: "Оптимізую процеси навколо себе: якщо щось можна автоматизувати — автоматизую. Кожен із 7 проєктів — відповідь на конкретну реальну потребу, а не навчальна вправа.",
+        approach4_title: "🔒 Privacy-first",
+        approach4_desc: "Перевага локальним рішенням. Жодного зайвого трафіку, жодних хмарних залежностей там, де це можливо. Ваші дані — у вас.",
+        footer_name: "Костянтин Овсянников",
+        footer_tagline: "Automation Engineer · AI-Powered Development",
+        footer_github: "GitHub",
+        footer_linkedin: "LinkedIn",
+        footer_resume: "Завантажити резюме",
+        footer_copy: "© 2026 Костянтин Овсянників · Житомир, Україна"
+      },
+      en: {
+        nav_projects: "Projects",
+        nav_skills: "Skills",
+        nav_about: "Approach",
+        nav_resume: "↓ Resume",
+        hero_eyebrow: "Available for projects",
+        hero_title: "Automation<br>Engineer &<br><span>AI Builder</span>",
+        hero_desc: "Turning ideas into working tools — browser extensions, local apps, cross-platform utilities. Mastered through practice and AI-assisted development.",
+        hero_view_projects: "View Projects",
+        hero_resume: "Download Resume",
+        hero_location: "Zhytomyr, Ukraine",
+        stat_projects: "Projects<br>Completed",
+        stat_platforms: "Deployment<br>Platforms",
+        stat_tech: "Languages &<br>Tech",
+        stat_cloud: "Cloud<br>Dependencies",
+        ai_badge_title: "AI-assisted Development",
+        ai_badge_subtitle: "Claude · ChatGPT · Cursor — daily workflow stack",
+        portfolio_label: "Portfolio",
+        portfolio_title: "Developed Solutions",
+        portfolio_desc: "Real tools solving real-world tasks. Each project from concept to final product.",
+        project1_desc: "Work efficiency utility that voices the current keyboard layout upon switching (e.g., 'Ukr' / 'En'), helping to avoid typing errors. Features independent volume control and settings persistence.",
+        project2_desc: "Browser extension for Chrome/Edge/Brave/Opera. Saves YouTube video bookmarks with exact timestamps locally. No cloud services — full privacy.",
+        project3_desc: "Cross-platform VLC extension: automatic file search with tags, MM:SS and H:MM:SS support, Cyrillic and UTF-8. Intuitive dropdown for video navigation.",
+        project4_desc: "Local HTML application for generating anonymous online surveys. Converts JSON questions into a web app based on Google Apps Script with auto-forming Google Sheets structure.",
+        project5_desc: "Web interface for yt-dlp + FFmpeg: download videos up to 4K from YouTube, automatic subtitle embedding, merging video/audio streams. Minimalist UI without cloud dependencies.",
+        project6_desc: "SPA for converting NotebookLM PDF presentations into images, removing watermarks and stamps, exporting to ZIP/PDF/PPTX. All processing takes place locally in the browser — 100% privacy.",
+        project7_desc: "Browser extension that parses NotebookLM quizzes via iframe + postMessage, saves them locally, and allows offline attempts with answer verification and result screen.",
+        skills_label: "Technical Stack",
+        skills_title: "Skills",
+        skills_desc: "The entire stack is self-taught through practice — without formal IT education.",
+        skill1_title: "AI Tools",
+        skill1_desc: "Claude, ChatGPT, Cursor — daily use for development, debugging, and process automation",
+        skill2_title: "Programming Languages",
+        skill2_desc: "Python, JavaScript, HTML/CSS, Bash, Bat — basic practical level on all platforms",
+        skill3_title: "Browser Extensions",
+        skill3_desc: "Chrome Extension API, IndexedDB, postMessage, Content Scripts — 3 completed extensions",
+        skill4_title: "Tools & Utilities",
+        skill4_desc: "FFmpeg, yt-dlp, VLC Lua API, Google Apps Script, PDF.js, JSZip",
+        skill5_title: "Operating Systems & Admin",
+        skill5_desc: "Windows, macOS, Linux — extensive experience in administration and development across all three platforms. Deep understanding of OS architecture, system APIs, and script automation",
+        about_label: "Approach",
+        about_title: "How I Work",
+        approach1_title: "🎓 Self-taught",
+        approach1_desc: "The entire tech stack was mastered independently through practice. Lack of formal education is not a limitation, but proof of the ability to set goals and deliver results.",
+        approach2_title: "⚡ Fast Learning",
+        approach2_desc: "Easily adapt to new languages, platforms, and tools. Language and stack are just means. If a task requires a new tool — I master it on the fly.",
+        approach3_title: "🔧 Systems Thinking",
+        approach3_desc: "Optimizing processes around me: if something can be automated — I automate it. Each of the 7 projects is a response to a specific real need.",
+        approach4_title: "🔒 Privacy-first",
+        approach4_desc: "Prefer local solutions. No unnecessary traffic, no cloud dependencies where possible. Your data stays with you.",
+        footer_name: "Kostyantyn Ovsiannykov",
+        footer_tagline: "Automation Engineer · AI-Powered Development",
+        footer_github: "GitHub",
+        footer_linkedin: "LinkedIn",
+        footer_resume: "Download Resume",
+        footer_copy: "© 2026 Kostyantyn Ovsiannykov · Zhytomyr, Ukraine"
+      }
+    };
+
+    function setLanguage(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      
+      // Update toggle buttons active state
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      // Update HTML lang attribute
+      document.documentElement.lang = lang;
+      
+      // Save preference
+      localStorage.setItem('preferredLang', lang);
+    }
+
+    // Initialize switcher buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setLanguage(btn.getAttribute('data-lang'));
+      });
+    });
+
+    // Load preferred language or default to UK
+    const savedLang = localStorage.getItem('preferredLang') || 'uk';
+    setLanguage(savedLang);
+
+    // ── NAVIGATION & UI ──
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -1181,7 +1371,6 @@
 
     reveals.forEach(el => observer.observe(el));
 
-    // Mobile menu
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
 
@@ -1195,7 +1384,6 @@
       });
     });
 
-    // Nav scroll effect
     const nav = document.querySelector('nav');
     window.addEventListener('scroll', () => {
       nav.style.boxShadow = window.scrollY > 20
@@ -1203,7 +1391,7 @@
         : 'none';
     });
 
-    // Auto numbering and images for projects
+    // ── PROJECTS IMAGES & NUMBERING ──
     document.querySelectorAll('.project-card').forEach((card, index) => {
       const num = index + 1;
       const numSpan = card.querySelector('.project-num');
@@ -1211,7 +1399,6 @@
 
       if (numSpan) numSpan.textContent = `#${num}`;
       if (imgEl) {
-        // Set image if src is empty or not set correctly
         const currentSrc = imgEl.getAttribute('src');
         if (!currentSrc || currentSrc === '') {
           imgEl.src = `${num}.png`;
@@ -1219,11 +1406,14 @@
       }
     });
 
-    // Hero content fade in on load
-    document.querySelector('.hero-content').style.cssText = 'opacity:0;transform:translateY(24px);transition:opacity 0.8s ease,transform 0.8s cubic-bezier(0.22,1,0.36,1)';
-    setTimeout(() => {
-      document.querySelector('.hero-content').style.cssText += ';opacity:1;transform:none';
-    }, 100);
+    // Hero content fade in
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+      heroContent.style.cssText = 'opacity:0;transform:translateY(24px);transition:opacity 0.8s ease,transform 0.8s cubic-bezier(0.22,1,0.36,1)';
+      setTimeout(() => {
+        heroContent.style.cssText += ';opacity:1;transform:none';
+      }, 100);
+    }
   </script>
 </body>
 
