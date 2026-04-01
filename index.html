@@ -1,1068 +1,1216 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Костянтин Овсянников — Automation Engineer</title>
-<meta property="og:title" content="Костянтин Овсянников — Automation Engineer & AI Builder">
-<meta property="og:description" content="Портфоліо: браузерні розширення, локальні застосунки, утиліти, розроблені за допомогою AI.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://jusmilltin-afk.github.io/portfolio/">
-<meta property="og:image" content="https://jusmilltin-afk.github.io/portfolio/5.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #f0f4ff;
-    --surface: #ffffff;
-    --surface2: #e8efff;
-    --accent: #1F6FEB;
-    --accent2: #0a3d8f;
-    --accent-light: #dbeafe;
-    --text: #0d1b3e;
-    --text-muted: #4a5e8a;
-    --text-light: #8a9bbf;
-    --border: #c8d8f8;
-    --tag-bg: #dbeafe;
-    --tag-text: #1e4bb8;
-    --card-shadow: 0 4px 32px rgba(31,111,235,0.10);
-    --card-hover-shadow: 0 12px 48px rgba(31,111,235,0.18);
-    --radius: 16px;
-    --radius-sm: 8px;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── NOISE TEXTURE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  /* ── NAVIGATION ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 48px;
-    background: rgba(240,244,255,0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    transition: all 0.3s ease;
-  }
-
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.1rem;
-    color: var(--accent);
-    letter-spacing: -0.02em;
-    text-decoration: none;
-  }
-
-  .mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--text);
-    cursor: pointer;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--accent); }
-
-  .nav-cta {
-    background: var(--accent);
-    color: #fff !important;
-    padding: 8px 20px;
-    border-radius: 100px;
-    font-weight: 500 !important;
-    transition: background 0.2s, transform 0.2s !important;
-  }
-
-  .nav-cta:hover {
-    background: var(--accent2) !important;
-    transform: translateY(-1px);
-    color: #fff !important;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 120px 48px 80px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg-circle {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(31,111,235,0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-bg-circle.c1 { width: 700px; height: 700px; top: -200px; right: -200px; }
-  .hero-bg-circle.c2 { width: 400px; height: 400px; bottom: -100px; left: -100px; opacity: 0.5; }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent-light);
-    color: var(--accent);
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 100px;
-    margin-bottom: 24px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.7); }
-  }
-
-  .hero h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.4rem, 4vw, 3.6rem);
-    font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    color: var(--text);
-    margin-bottom: 20px;
-  }
-
-  .hero h1 span {
-    color: var(--accent);
-    position: relative;
-  }
-
-  .hero-desc {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-    margin-bottom: 36px;
-    font-weight: 300;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent);
-    color: #fff;
-    padding: 14px 28px;
-    border-radius: 100px;
-    font-size: 0.925rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 20px rgba(31,111,235,0.35);
-  }
-
-  .btn-primary:hover {
-    background: var(--accent2);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(31,111,235,0.45);
-  }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: transparent;
-    color: var(--text);
-    padding: 14px 28px;
-    border-radius: 100px;
-    font-size: 0.925rem;
-    font-weight: 500;
-    text-decoration: none;
-    border: 1.5px solid var(--border);
-    transition: all 0.25s ease;
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-2px);
-  }
-
-  /* Hero visual side */
-  .hero-visual {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .hero-stat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    text-align: center;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--card-hover-shadow);
-  }
-
-  .stat-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.4rem;
-    font-weight: 800;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .stat-label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .ai-badge {
-    background: linear-gradient(135deg, var(--accent) 0%, #0a3d8f 100%);
-    border-radius: var(--radius);
-    padding: 20px 24px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    box-shadow: 0 8px 32px rgba(31,111,235,0.3);
-  }
-
-  .ai-badge-icon { font-size: 2rem; }
-
-  .ai-badge-text strong {
-    display: block;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 4px;
-  }
-
-  .ai-badge-text span {
-    font-size: 0.82rem;
-    opacity: 0.8;
-    font-weight: 300;
-  }
-
-  /* ── CONTACT INFO STRIP ── */
-  .contact-strip {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    margin-top: 32px;
-  }
-
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .contact-item:hover { color: var(--accent); }
-  .contact-item svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-  /* ── SECTIONS ── */
-  section {
-    padding: 100px 48px;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-
-  .section-header {
-    margin-bottom: 60px;
-  }
-
-  .section-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    line-height: 1.15;
-  }
-
-  .section-desc {
-    margin-top: 16px;
-    font-size: 1rem;
-    color: var(--text-muted);
-    font-weight: 300;
-    line-height: 1.6;
-    max-width: 560px;
-  }
-
-  /* ── PROJECTS GRID ── */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 28px;
-  }
-
-  .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
-    display: flex;
-    flex-direction: column;
-    cursor: default;
-  }
-
-  .project-card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: var(--card-hover-shadow);
-  }
-
-  .screenshot-wrapper {
-    background: var(--surface2);
-    padding: 20px;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .project-screenshot {
-    width: 100%;
-    height: 200px;
-    object-fit: contain;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .project-card:hover .project-screenshot {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.18);
-  }
-
-  .project-num {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    background: var(--accent);
-    color: #fff;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    border-radius: 100px;
-    z-index: 2;
-  }
-
-  .project-body {
-    padding: 24px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .project-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-
-  .project-desc {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    font-weight: 300;
-    flex: 1;
-    margin-bottom: 16px;
-  }
-
-  .tech-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .tag {
-    background: var(--tag-bg);
-    color: var(--tag-text);
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 100px;
-    letter-spacing: 0.02em;
-  }
-
-  /* ── SKILLS ── */
-  .skills-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  .skill-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .skill-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--card-hover-shadow);
-  }
-
-  .skill-card.wide {
-    grid-column: span 2;
-  }
-
-  .skill-icon {
-    font-size: 1.8rem;
-    margin-bottom: 14px;
-    display: block;
-  }
-
-  .skill-name {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  .skill-detail {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.55;
-    font-weight: 300;
-  }
-
-  /* ── APPROACH ── */
-  .approach-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .approach-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 32px;
-    box-shadow: var(--card-shadow);
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .approach-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: var(--accent);
-    border-radius: 4px 0 0 4px;
-  }
-
-  .approach-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--card-hover-shadow);
-  }
-
-  .approach-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-
-  .approach-text {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.65;
-    font-weight: 300;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--text);
-    color: rgba(255,255,255,0.7);
-    padding: 56px 48px;
-    text-align: center;
-  }
-
-  .footer-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 8px;
-  }
-
-  .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin: 24px 0;
-    flex-wrap: wrap;
-  }
-
-  .footer-links a {
-    color: rgba(255,255,255,0.6);
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: color 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .footer-links a:hover { color: #fff; }
-
-  .footer-copy {
-    font-size: 0.78rem;
-    opacity: 0.4;
-    margin-top: 16px;
-  }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1);
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
-    .mobile-menu-btn { display: block; }
-    .nav-links {
-      position: absolute;
-      top: 100%;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Костянтин Овсянников — Automation Engineer</title>
+  <meta property="og:title" content="Костянтин Овсянников — Automation Engineer & AI Builder">
+  <meta property="og:description"
+    content="Портфоліо: браузерні розширення, локальні застосунки, утиліти, розроблені за допомогою AI.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jusmilltin-afk.github.io/portfolio/">
+  <meta property="og:image" content="https://jusmilltin-afk.github.io/portfolio/5.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --surface2: #e8efff;
+      --accent: #1F6FEB;
+      --accent2: #0a3d8f;
+      --accent-light: #dbeafe;
+      --text: #0d1b3e;
+      --text-muted: #4a5e8a;
+      --text-light: #8a9bbf;
+      --border: #c8d8f8;
+      --tag-bg: #dbeafe;
+      --tag-text: #1e4bb8;
+      --card-shadow: 0 4px 32px rgba(31, 111, 235, 0.10);
+      --card-hover-shadow: 0 12px 48px rgba(31, 111, 235, 0.18);
+      --radius: 16px;
+      --radius-sm: 8px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0;
       left: 0;
       right: 0;
-      background: rgba(240,244,255,0.95);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(240, 244, 255, 0.85);
       backdrop-filter: blur(16px);
-      flex-direction: column;
-      padding: 24px;
       border-bottom: 1px solid var(--border);
-      transform: translateY(-10px);
-      opacity: 0;
-      pointer-events: none;
       transition: all 0.3s ease;
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-weight: 500 !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent2) !important;
+      transform: translateY(-1px);
+      color: #fff !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(31, 111, 235, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-bg-circle.c1 {
+      width: 700px;
+      height: 700px;
+      top: -200px;
+      right: -200px;
+    }
+
+    .hero-bg-circle.c2 {
+      width: 400px;
+      height: 400px;
+      bottom: -100px;
+      left: -100px;
+      opacity: 0.5;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.7);
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-size: 0.925rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px rgba(31, 111, 235, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(31, 111, 235, 0.45);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-size: 0.925rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1.5px solid var(--border);
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Hero visual side */
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ai-badge {
+      background: linear-gradient(135deg, var(--accent) 0%, #0a3d8f 100%);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 8px 32px rgba(31, 111, 235, 0.3);
+    }
+
+    .ai-badge-icon {
+      font-size: 2rem;
+    }
+
+    .ai-badge-text strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .ai-badge-text span {
+      font-size: 0.82rem;
+      opacity: 0.8;
+      font-weight: 300;
+    }
+
+    /* ── CONTACT INFO STRIP ── */
+    .contact-strip {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-item:hover {
+      color: var(--accent);
+    }
+
+    .contact-item svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.15;
+    }
+
+    .section-desc {
+      margin-top: 16px;
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* ── PROJECTS GRID ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      cursor: default;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .screenshot-wrapper {
+      background: var(--surface2);
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
       align-items: center;
     }
-    .nav-links.active {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .hero { padding: 100px 24px 60px; }
-    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-    section { padding: 72px 24px; }
-    .skills-wrapper, .approach-grid { grid-template-columns: 1fr; }
-    .skill-card.wide { grid-column: span 1; }
-    .projects-grid { grid-template-columns: 1fr; }
-    footer { padding: 40px 24px; }
-  }
 
-  @media (max-width: 480px) {
-    .hero-stat-grid { grid-template-columns: 1fr 1fr; }
-    .hero-actions { flex-direction: column; }
-    .btn-primary, .btn-secondary { justify-content: center; }
-  }
-</style>
+    .project-screenshot {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .project-card:hover .project-screenshot {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    .project-num {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 100px;
+      z-index: 2;
+    }
+
+    .project-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 300;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── SKILLS ── */
+    .skills-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .skill-card.wide {
+      grid-column: span 2;
+    }
+
+    .skill-icon {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .skill-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .skill-detail {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* ── APPROACH ── */
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .approach-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .approach-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+      border-radius: 4px 0 0 4px;
+    }
+
+    .approach-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .approach-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .approach-text {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 56px 48px;
+      text-align: center;
+    }
+
+    .footer-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 24px 0;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      opacity: 0.4;
+      margin-top: 16px;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav {
+        padding: 16px 24px;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(240, 244, 255, 0.95);
+        backdrop-filter: blur(16px);
+        flex-direction: column;
+        padding: 24px;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        align-items: center;
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .hero {
+        padding: 100px 24px 60px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      section {
+        padding: 72px 24px;
+      }
+
+      .skills-wrapper,
+      .approach-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-card.wide {
+        grid-column: span 1;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        padding: 40px 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stat-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- NAVIGATION -->
-<nav>
-  <a href="#" class="nav-logo">K.Ovsiannykov</a>
-  <button class="mobile-menu-btn" aria-label="Toggle menu">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-  </button>
-  <ul class="nav-links">
-    <li><a href="#projects">Проєкти</a></li>
-    <li><a href="#skills">Навички</a></li>
-    <li><a href="#about">Підхід</a></li>
-    <li><a href="Ovsiannykov_CV.docx" class="nav-cta">↓ Резюме</a></li>
-  </ul>
-</nav>
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#" class="nav-logo">K.Ovsiannykov</a>
+    <button class="mobile-menu-btn" aria-label="Toggle menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#projects">Проєкти</a></li>
+      <li><a href="#skills">Навички</a></li>
+      <li><a href="#about">Підхід</a></li>
+      <li><a href="Ovsiannykov_CV.docx" class="nav-cta">↓ Резюме</a></li>
+    </ul>
+  </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-bg-circle c1"></div>
-  <div class="hero-bg-circle c2"></div>
-  <div class="hero-grid">
-    <div class="hero-content">
-      <div class="hero-eyebrow">Доступний для проєктів</div>
-      <h1>
-        Automation<br>
-        Engineer &<br>
-        <span>AI Builder</span>
-      </h1>
-      <p class="hero-desc">
-        Перетворюю ідеї на працюючі інструменти — браузерні розширення, локальні застосунки, cross-platform утиліти. Весь стек освоєний самостійно через практику та AI-assisted розробку.
-      </p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          Переглянути проєкти
-        </a>
-        <a href="Ovsiannykov_CV.docx" class="btn-secondary" download>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Завантажити резюме
-        </a>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg-circle c1"></div>
+    <div class="hero-bg-circle c2"></div>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Доступний для проєктів</div>
+        <h1>
+          Automation<br>
+          Engineer &<br>
+          <span>AI Builder</span>
+        </h1>
+        <p class="hero-desc">
+          Перетворюю ідеї на працюючі інструменти — браузерні розширення, локальні застосунки, cross-platform утиліти.
+          Весь стек освоєний самостійно через практику та AI-assisted розробку.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+            Переглянути проєкти
+          </a>
+          <a href="Ovsiannykov_CV.docx" class="btn-secondary" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Завантажити резюме
+          </a>
+        </div>
+        <div class="contact-strip">
+          <a href="mailto:kinstintin38@gmail.com" class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7" />
+            </svg>
+            kinstintin38@gmail.com
+          </a>
+          <a href="https://github.com/Kostyaov" target="_blank" class="contact-item">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            GitHub / Kostyaov
+          </a>
+          <a href="https://www.linkedin.com/in/костянтин-овсянников-85306838b/" target="_blank" class="contact-item">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
+            LinkedIn
+          </a>
+          <span class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            Житомир, Україна
+          </span>
+        </div>
       </div>
-      <div class="contact-strip">
-        <a href="mailto:kinstintin38@gmail.com" class="contact-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
-          kinstintin38@gmail.com
-        </a>
-        <a href="https://github.com/Kostyaov" target="_blank" class="contact-item">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          GitHub / Kostyaov
-        </a>
-        <a href="https://www.linkedin.com/in/костянтин-овсянников-85306838b/" target="_blank" class="contact-item">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-          LinkedIn
-        </a>
-        <span class="contact-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Житомир, Україна
-        </span>
-      </div>
-    </div>
 
-    <div class="hero-visual reveal">
-      <div class="hero-stat-grid">
-        <div class="stat-card">
-          <div class="stat-number">7</div>
-          <div class="stat-label">Проєктів<br>завершено</div>
+      <div class="hero-visual reveal">
+        <div class="hero-stat-grid">
+          <div class="stat-card">
+            <div class="stat-number">7</div>
+            <div class="stat-label">Проєктів<br>завершено</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Платформи<br>підтримки</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Мов &<br>технологій</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Хмарних<br>залежностей</div>
+          </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-number">3</div>
-          <div class="stat-label">Платформи<br>підтримки</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">5+</div>
-          <div class="stat-label">Мов &<br>технологій</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">0</div>
-          <div class="stat-label">Хмарних<br>залежностей</div>
-        </div>
-      </div>
-      <div class="ai-badge">
-        <div class="ai-badge-icon">🤖</div>
-        <div class="ai-badge-text">
-          <strong>AI-assisted розробка</strong>
-          <span>Claude · ChatGPT · Cursor — щоденний робочий стек</span>
+        <div class="ai-badge">
+          <div class="ai-badge-icon">🤖</div>
+          <div class="ai-badge-text">
+            <strong>AI-assisted розробка</strong>
+            <span>Claude · ChatGPT · Cursor — щоденний робочий стек</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-header reveal">
-    <div class="section-label">Портфоліо</div>
-    <h2 class="section-title">Розроблені рішення</h2>
-    <p class="section-desc">Реальні інструменти, які вирішують конкретні задачі. Кожен проєкт — від ідеї до готового продукту.</p>
-  </div>
-
-  <div class="projects-grid">
-
-    <div class="project-card reveal">
-      <div class="screenshot-wrapper">
-        <span class="project-num"></span>
-        <img class="project-screenshot" src="" alt="macOS Keyboard Sound Notifier" loading="lazy">
-      </div>
-      <div class="project-body">
-        <div class="project-title">macOS Keyboard Layout Sound Notifier</div>
-        <p class="project-desc">Утиліта відтворює різні звуки при переключенні розкладки (EN/UK). Незалежне регулювання гучності без впливу на системний рівень, збереження налаштувань між запусками.</p>
-        <div class="tech-tags">
-          <span class="tag">Python</span>
-          <span class="tag">pyobjc</span>
-          <span class="tag">macOS API</span>
-        </div>
-      </div>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header reveal">
+      <div class="section-label">Портфоліо</div>
+      <h2 class="section-title">Розроблені рішення</h2>
+      <p class="section-desc">Реальні інструменти, які вирішують конкретні задачі. Кожен проєкт — від ідеї до готового
+        продукту.</p>
     </div>
 
-    <div class="project-card reveal">
-      <div class="screenshot-wrapper">
-        <span class="project-num"></span>
-        <img class="project-screenshot" src="" alt="YouTube Bookmarks Saver" loading="lazy">
-      </div>
-      <div class="project-body">
-        <div class="project-title">YouTube Bookmarks Saver v3.1</div>
-        <p class="project-desc">Браузерне розширення для Chrome/Edge/Brave/Opera. Зберігає закладки YouTube-відео з точними тайм-штампами локально. Без хмарних сервісів — повна приватність.</p>
-        <div class="tech-tags">
-          <span class="tag">JavaScript</span>
-          <span class="tag">Chrome API</span>
-          <span class="tag">IndexedDB</span>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="screenshot-wrapper">
+          <span class="project-num"></span>
+          <img class="project-screenshot" src="" alt="macOS Keyboard Sound Notifier" loading="lazy">
+        </div>
+        <div class="project-body">
+          <div class="project-title">macOS Keyboard Layout Sound Notifier</div>
+          <p class="project-desc">Утиліта для підвищення зручності роботи, яка озвучує поточну розкладку клавіатури при
+            перемиканні (наприклад, “укр” / “ен”), допомагаючи уникати помилок при наборі тексту. Підтримує незалежне
+            керування гучністю та збереження налаштувань.</p>
+          <div class="tech-tags">
+            <span class="tag">Python</span>
+            <span class="tag">pyobjc</span>
+            <span class="tag">macOS API</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="project-card reveal">
-      <div class="screenshot-wrapper">
-        <span class="project-num"></span>
-        <img class="project-screenshot" src="" alt="VLC Video Bookmarks" loading="lazy">
-      </div>
-      <div class="project-body">
-        <div class="project-title">VLC Video Bookmarks Extension</div>
-        <p class="project-desc">Cross-platform розширення для VLC: автопошук файлів з мітками, підтримка MM:SS та H:MM:SS, кирилиця та UTF-8. Інтуїтивний dropdown для навігації по відео.</p>
-        <div class="tech-tags">
-          <span class="tag">Python</span>
-          <span class="tag">VLC Lua API</span>
-          <span class="tag">Cross-platform</span>
+      <div class="project-card reveal">
+        <div class="screenshot-wrapper">
+          <span class="project-num"></span>
+          <img class="project-screenshot" src="" alt="YouTube Bookmarks Saver" loading="lazy">
+        </div>
+        <div class="project-body">
+          <div class="project-title">YouTube Bookmarks Saver v3.1</div>
+          <p class="project-desc">Браузерне розширення для Chrome/Edge/Brave/Opera. Зберігає закладки YouTube-відео з
+            точними тайм-штампами локально. Без хмарних сервісів — повна приватність.</p>
+          <div class="tech-tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">Chrome API</span>
+            <span class="tag">IndexedDB</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="project-card reveal">
-      <div class="screenshot-wrapper">
-        <span class="project-num"></span>
-        <img class="project-screenshot" src="" alt="Quiz Builder Pro" loading="lazy">
-      </div>
-      <div class="project-body">
-        <div class="project-title">Quiz Builder Pro v2.0</div>
-        <p class="project-desc">Локальний HTML-застосунок для генерації анонімних онлайн-опитувань. Перетворює JSON з питаннями на готовий веб-додаток на базі Google Apps Script з автоформуванням структури Google Таблиць.</p>
-        <div class="tech-tags">
-          <span class="tag">HTML/JS</span>
-          <span class="tag">Google Apps Script</span>
-          <span class="tag">Sheets API</span>
+      <div class="project-card reveal">
+        <div class="screenshot-wrapper">
+          <span class="project-num"></span>
+          <img class="project-screenshot" src="" alt="VLC Video Bookmarks" loading="lazy">
+        </div>
+        <div class="project-body">
+          <div class="project-title">VLC Video Bookmarks Extension</div>
+          <p class="project-desc">Cross-platform розширення для VLC: автопошук файлів з мітками, підтримка MM:SS та
+            H:MM:SS, кирилиця та UTF-8. Інтуїтивний dropdown для навігації по відео.</p>
+          <div class="tech-tags">
+            <span class="tag">Python</span>
+            <span class="tag">VLC Lua API</span>
+            <span class="tag">Cross-platform</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="project-card reveal">
-      <div class="screenshot-wrapper">
-        <span class="project-num"></span>
-        <img class="project-screenshot" src="" alt="Web-DLP" loading="lazy">
-      </div>
-      <div class="project-body">
-        <div class="project-title">Web-DLP — медіа-дашборд</div>
-        <p class="project-desc">Веб-інтерфейс для yt-dlp + FFmpeg: завантаження відео до 4K з YouTube, автоматичне вбудовування субтитрів, об'єднання відео/аудіо потоків. Мінімалістичний UI без хмарних залежностей.</p>
-        <div class="tech-tags">
-          <span class="tag">Python</span>
-          <span class="tag">HTML/JS</span>
-          <span class="tag">FFmpeg</span>
-          <span class="tag">yt-dlp</span>
+      <div class="project-card reveal">
+        <div class="screenshot-wrapper">
+          <span class="project-num"></span>
+          <img class="project-screenshot" src="" alt="Quiz Builder Pro" loading="lazy">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Quiz Builder Pro v2.0</div>
+          <p class="project-desc">Локальний HTML-застосунок для генерації анонімних онлайн-опитувань. Перетворює JSON з
+            питаннями на готовий веб-додаток на базі Google Apps Script з автоформуванням структури Google Таблиць.</p>
+          <div class="tech-tags">
+            <span class="tag">HTML/JS</span>
+            <span class="tag">Google Apps Script</span>
+            <span class="tag">Sheets API</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="project-card reveal">
-      <div class="screenshot-wrapper">
-        <span class="project-num"></span>
-        <img class="project-screenshot" src="" alt="Smart PDF Converter" loading="lazy">
-      </div>
-      <div class="project-body">
-        <div class="project-title">Smart PDF Converter & Cleaner</div>
-        <p class="project-desc">SPA для конвертації PDF у зображення, видалення ватермарок і штампів, експорту в ZIP/PDF/PPTX. Вся обробка відбувається локально в браузері — 100% конфіденційність.</p>
-        <div class="tech-tags">
-          <span class="tag">JavaScript</span>
-          <span class="tag">PDF.js</span>
-          <span class="tag">Canvas API</span>
-          <span class="tag">JSZip</span>
+      <div class="project-card reveal">
+        <div class="screenshot-wrapper">
+          <span class="project-num"></span>
+          <img class="project-screenshot" src="" alt="Web-DLP" loading="lazy">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Web-DLP — медіа-дашборд</div>
+          <p class="project-desc">Веб-інтерфейс для yt-dlp + FFmpeg: завантаження відео до 4K з YouTube, автоматичне
+            вбудовування субтитрів, об'єднання відео/аудіо потоків. Мінімалістичний UI без хмарних залежностей.</p>
+          <div class="tech-tags">
+            <span class="tag">Python</span>
+            <span class="tag">HTML/JS</span>
+            <span class="tag">FFmpeg</span>
+            <span class="tag">yt-dlp</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="project-card reveal">
-      <div class="screenshot-wrapper">
-        <span class="project-num"></span>
-        <img class="project-screenshot" src="" alt="QuizNLM" loading="lazy">
-      </div>
-      <div class="project-body">
-        <div class="project-title">QuizNLM — офлайн тести з NotebookLM</div>
-        <p class="project-desc">Браузерне розширення, що парсить квізи з NotebookLM через iframe + postMessage, зберігає локально та дозволяє проходити офлайн з перевіркою відповідей та екраном результатів.</p>
-        <div class="tech-tags">
-          <span class="tag">JavaScript</span>
-          <span class="tag">Chrome Extension API</span>
-          <span class="tag">postMessage</span>
-          <span class="tag">IndexedDB</span>
+      <div class="project-card reveal">
+        <div class="screenshot-wrapper">
+          <span class="project-num"></span>
+          <img class="project-screenshot" src="" alt="Smart PDF Converter" loading="lazy">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Smart PDF Converter & Cleaner</div>
+          <p class="project-desc">SPA для конвертації PDF у зображення, видалення ватермарок і штампів, експорту в
+            ZIP/PDF/PPTX. Вся обробка відбувається локально в браузері — 100% конфіденційність.</p>
+          <div class="tech-tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">PDF.js</span>
+            <span class="tag">Canvas API</span>
+            <span class="tag">JSZip</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 
+      <div class="project-card reveal">
+        <div class="screenshot-wrapper">
+          <span class="project-num"></span>
+          <img class="project-screenshot" src="" alt="QuizNLM" loading="lazy">
+        </div>
+        <div class="project-body">
+          <div class="project-title">QuizNLM — офлайн тести з NotebookLM</div>
+          <p class="project-desc">Браузерне розширення, що парсить квізи з NotebookLM через iframe + postMessage,
+            зберігає локально та дозволяє проходити офлайн з перевіркою відповідей та екраном результатів.</p>
+          <div class="tech-tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">Chrome Extension API</span>
+            <span class="tag">postMessage</span>
+            <span class="tag">IndexedDB</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 
       Щоб додати новий проект:
       1. Скопіюйте блок <div class="project-card reveal">...</div> нижче.
       2. Додайте опис та теги.
       3. Збережіть зображення як 8.png (згідно з чергою).
       Скрипт автоматично поставить номер #8 і підтягне картинку 8.png.
     -->
-  </div>
-</section>
+    </div>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-header reveal">
-    <div class="section-label">Технічний стек</div>
-    <h2 class="section-title">Навички</h2>
-    <p class="section-desc">Увесь стек освоєний самостійно через практику — без формальної ІТ-освіти.</p>
-  </div>
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header reveal">
+      <div class="section-label">Технічний стек</div>
+      <h2 class="section-title">Навички</h2>
+      <p class="section-desc">Увесь стек освоєний самостійно через практику — без формальної ІТ-освіти.</p>
+    </div>
 
-  <div class="skills-wrapper">
-    <div class="skill-card reveal">
-      <span class="skill-icon">🤖</span>
-      <div class="skill-name">AI-інструменти</div>
-      <div class="skill-detail">Claude, ChatGPT, Cursor — щоденне використання для розробки, дебагінгу та автоматизації процесів</div>
+    <div class="skills-wrapper">
+      <div class="skill-card reveal">
+        <span class="skill-icon">🤖</span>
+        <div class="skill-name">AI-інструменти</div>
+        <div class="skill-detail">Claude, ChatGPT, Cursor — щоденне використання для розробки, дебагінгу та
+          автоматизації процесів</div>
+      </div>
+      <div class="skill-card reveal">
+        <span class="skill-icon">💻</span>
+        <div class="skill-name">Мови програмування</div>
+        <div class="skill-detail">Python, JavaScript, HTML/CSS, Bash, Bat — базово-практичний рівень на всіх платформах
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <span class="skill-icon">🧩</span>
+        <div class="skill-name">Браузерні розширення</div>
+        <div class="skill-detail">Chrome Extension API, IndexedDB, postMessage, Content Scripts — 3 завершених
+          розширення</div>
+      </div>
+      <div class="skill-card reveal">
+        <span class="skill-icon">⚙️</span>
+        <div class="skill-name">Інструменти & Утиліти</div>
+        <div class="skill-detail">FFmpeg, yt-dlp, VLC Lua API, Google Apps Script, PDF.js, JSZip</div>
+      </div>
+      <div class="skill-card wide reveal">
+        <span class="skill-icon">🖥️</span>
+        <div class="skill-name">Операційні системи та адміністрування</div>
+        <div class="skill-detail">Windows, macOS, Linux — багатий досвід адміністрування та розробки на всіх трьох
+          платформах. Розуміння архітектури ОС, системних API, автоматизації через скрипти</div>
+      </div>
     </div>
-    <div class="skill-card reveal">
-      <span class="skill-icon">💻</span>
-      <div class="skill-name">Мови програмування</div>
-      <div class="skill-detail">Python, JavaScript, HTML/CSS, Bash, Bat — базово-практичний рівень на всіх платформах</div>
-    </div>
-    <div class="skill-card reveal">
-      <span class="skill-icon">🧩</span>
-      <div class="skill-name">Браузерні розширення</div>
-      <div class="skill-detail">Chrome Extension API, IndexedDB, postMessage, Content Scripts — 3 завершених розширення</div>
-    </div>
-    <div class="skill-card reveal">
-      <span class="skill-icon">⚙️</span>
-      <div class="skill-name">Інструменти & Утиліти</div>
-      <div class="skill-detail">FFmpeg, yt-dlp, VLC Lua API, Google Apps Script, PDF.js, JSZip</div>
-    </div>
-    <div class="skill-card wide reveal">
-      <span class="skill-icon">🖥️</span>
-      <div class="skill-name">Операційні системи та адміністрування</div>
-      <div class="skill-detail">Windows, macOS, Linux — багатий досвід адміністрування та розробки на всіх трьох платформах. Розуміння архітектури ОС, системних API, автоматизації через скрипти</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- APPROACH -->
-<section id="about">
-  <div class="section-header reveal">
-    <div class="section-label">Підхід</div>
-    <h2 class="section-title">Як я працюю</h2>
-  </div>
+  <!-- APPROACH -->
+  <section id="about">
+    <div class="section-header reveal">
+      <div class="section-label">Підхід</div>
+      <h2 class="section-title">Як я працюю</h2>
+    </div>
 
-  <div class="approach-grid">
-    <div class="approach-card reveal">
-      <div class="approach-title">🎓 Self-taught</div>
-      <p class="approach-text">Увесь технічний стек освоєний самостійно через практику. Відсутність формальної освіти — це не обмеження, а доказ здатності самостійно ставити задачі та доводити їх до результату.</p>
+    <div class="approach-grid">
+      <div class="approach-card reveal">
+        <div class="approach-title">🎓 Self-taught</div>
+        <p class="approach-text">Увесь технічний стек освоєний самостійно через практику. Відсутність формальної освіти
+          — це не обмеження, а доказ здатності самостійно ставити задачі та доводити їх до результату.</p>
+      </div>
+      <div class="approach-card reveal">
+        <div class="approach-title">⚡ Швидке навчання</div>
+        <p class="approach-text">Легко адаптуюся до нових мов, платформ та інструментів. Мова і стек — лише засоби. Якщо
+          задача вимагає нового інструменту — освоюю його в процесі роботи.</p>
+      </div>
+      <div class="approach-card reveal">
+        <div class="approach-title">🔧 Системне мислення</div>
+        <p class="approach-text">Оптимізую процеси навколо себе: якщо щось можна автоматизувати — автоматизую. Кожен із
+          7 проєктів — відповідь на конкретну реальну потребу, а не навчальна вправа.</p>
+      </div>
+      <div class="approach-card reveal">
+        <div class="approach-title">🔒 Privacy-first</div>
+        <p class="approach-text">Перевага локальним рішенням. Жодного зайвого трафіку, жодних хмарних залежностей там,
+          де це можливо. Ваші дані — у вас.</p>
+      </div>
     </div>
-    <div class="approach-card reveal">
-      <div class="approach-title">⚡ Швидке навчання</div>
-      <p class="approach-text">Легко адаптуюся до нових мов, платформ та інструментів. Мова і стек — лише засоби. Якщо задача вимагає нового інструменту — освоюю його в процесі роботи.</p>
-    </div>
-    <div class="approach-card reveal">
-      <div class="approach-title">🔧 Системне мислення</div>
-      <p class="approach-text">Оптимізую процеси навколо себе: якщо щось можна автоматизувати — автоматизую. Кожен із 7 проєктів — відповідь на конкретну реальну потребу, а не навчальна вправа.</p>
-    </div>
-    <div class="approach-card reveal">
-      <div class="approach-title">🔒 Privacy-first</div>
-      <p class="approach-text">Перевага локальним рішенням. Жодного зайвого трафіку, жодних хмарних залежностей там, де це можливо. Ваші дані — у вас.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-name">Костянтин Овсянников</div>
-  <div style="font-size:0.875rem; margin-bottom:4px;">Automation Engineer · AI-Powered Development</div>
-  <div class="footer-links">
-    <a href="mailto:kinstintin38@gmail.com">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
-      kinstintin38@gmail.com
-    </a>
-    <a href="tel:+380985535415">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-      +380 98 553 54 15
-    </a>
-    <a href="https://github.com/Kostyaov" target="_blank">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-      GitHub
-    </a>
-    <a href="https://www.linkedin.com/in/костянтин-овсянников-85306838b/" target="_blank">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-      LinkedIn
-    </a>
-    <a href="Ovsiannykov_CV.docx" download>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Завантажити резюме
-    </a>
-  </div>
-  <div class="footer-copy">© 2026 Костянтин Овсянників · Житомир, Україна</div>
-</footer>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Костянтин Овсянников</div>
+    <div style="font-size:0.875rem; margin-bottom:4px;">Automation Engineer · AI-Powered Development</div>
+    <div class="footer-links">
+      <a href="mailto:kinstintin38@gmail.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="4" width="20" height="16" rx="2" />
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7" />
+        </svg>
+        kinstintin38@gmail.com
+      </a>
+      <a href="tel:+380985535415">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+        </svg>
+        +380 98 553 54 15
+      </a>
+      <a href="https://github.com/Kostyaov" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+        </svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/костянтин-овсянников-85306838b/" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+          <circle cx="4" cy="4" r="2" />
+        </svg>
+        LinkedIn
+      </a>
+      <a href="Ovsiannykov_CV.docx" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        Завантажити резюме
+      </a>
+    </div>
+    <div class="footer-copy">© 2026 Костянтин Овсянників · Житомир, Україна</div>
+  </footer>
 
-<script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Mobile menu
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Nav scroll effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.boxShadow = window.scrollY > 20
+        ? '0 4px 24px rgba(31,111,235,0.10)'
+        : 'none';
+    });
+
+    // Auto numbering and images for projects
+    document.querySelectorAll('.project-card').forEach((card, index) => {
+      const num = index + 1;
+      const numSpan = card.querySelector('.project-num');
+      const imgEl = card.querySelector('.project-screenshot');
+
+      if (numSpan) numSpan.textContent = `#${num}`;
+      if (imgEl) {
+        // Set image if src is empty or not set correctly
+        const currentSrc = imgEl.getAttribute('src');
+        if (!currentSrc || currentSrc === '') {
+          imgEl.src = `${num}.png`;
+        }
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  reveals.forEach(el => observer.observe(el));
-
-  // Mobile menu
-  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-  const navLinks = document.querySelector('.nav-links');
-  
-  mobileMenuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
-
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('active');
-    });
-  });
-
-  // Nav scroll effect
-  const nav = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
-    nav.style.boxShadow = window.scrollY > 20
-      ? '0 4px 24px rgba(31,111,235,0.10)'
-      : 'none';
-  });
-
-  // Auto numbering and images for projects
-  document.querySelectorAll('.project-card').forEach((card, index) => {
-    const num = index + 1;
-    const numSpan = card.querySelector('.project-num');
-    const imgEl = card.querySelector('.project-screenshot');
-    
-    if (numSpan) numSpan.textContent = `#${num}`;
-    if (imgEl) {
-      // Set image if src is empty or not set correctly
-      const currentSrc = imgEl.getAttribute('src');
-      if (!currentSrc || currentSrc === '') {
-        imgEl.src = `${num}.png`;
-      }
-    }
-  });
-
-  // Hero content fade in on load
-  document.querySelector('.hero-content').style.cssText = 'opacity:0;transform:translateY(24px);transition:opacity 0.8s ease,transform 0.8s cubic-bezier(0.22,1,0.36,1)';
-  setTimeout(() => {
-    document.querySelector('.hero-content').style.cssText += ';opacity:1;transform:none';
-  }, 100);
-</script>
+    // Hero content fade in on load
+    document.querySelector('.hero-content').style.cssText = 'opacity:0;transform:translateY(24px);transition:opacity 0.8s ease,transform 0.8s cubic-bezier(0.22,1,0.36,1)';
+    setTimeout(() => {
+      document.querySelector('.hero-content').style.cssText += ';opacity:1;transform:none';
+    }, 100);
+  </script>
 </body>
+
 </html>
