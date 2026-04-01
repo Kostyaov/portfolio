@@ -406,26 +406,27 @@
     box-shadow: var(--card-hover-shadow);
   }
 
+  .screenshot-wrapper {
+    background: var(--surface2);
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .project-screenshot {
     width: 100%;
-    height: 240px;
+    height: 220px;
     object-fit: contain;
-    object-position: center;
-    display: block;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface2);
-    padding: 12px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius);
     transition: transform 0.5s ease;
   }
 
   .project-card:hover .project-screenshot {
-    transform: scale(1.03);
-  }
-
-  .screenshot-wrapper {
-    overflow: hidden;
-    position: relative;
+    transform: scale(1.05);
   }
 
   .project-num {
