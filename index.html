@@ -218,12 +218,13 @@
 
     .hero h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-size: clamp(2.1rem, 7vw, 3.6rem);
       font-weight: 800;
       line-height: 1.08;
       letter-spacing: -0.03em;
       color: var(--text);
       margin-bottom: 20px;
+      overflow-wrap: break-word;
     }
 
     .hero h1 span {
@@ -756,6 +757,18 @@
     }
 
     @media (max-width: 480px) {
+      .hero {
+        padding: 100px 20px 40px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .contact-strip {
+        gap: 12px 18px;
+      }
+
       .hero-stat-grid {
         grid-template-columns: 1fr 1fr;
       }
