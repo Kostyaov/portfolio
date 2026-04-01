@@ -781,8 +781,8 @@
 
     <div class="project-card reveal">
       <div class="screenshot-wrapper">
-        <span class="project-num">#1</span>
-        <img class="project-screenshot" src="1.png" alt="macOS Keyboard Sound Notifier" loading="lazy">
+        <span class="project-num"></span>
+        <img class="project-screenshot" src="" alt="macOS Keyboard Sound Notifier" loading="lazy">
       </div>
       <div class="project-body">
         <div class="project-title">macOS Keyboard Layout Sound Notifier</div>
@@ -797,8 +797,8 @@
 
     <div class="project-card reveal">
       <div class="screenshot-wrapper">
-        <span class="project-num">#2</span>
-        <img class="project-screenshot" src="2.png" alt="YouTube Bookmarks Saver" loading="lazy">
+        <span class="project-num"></span>
+        <img class="project-screenshot" src="" alt="YouTube Bookmarks Saver" loading="lazy">
       </div>
       <div class="project-body">
         <div class="project-title">YouTube Bookmarks Saver v3.1</div>
@@ -813,8 +813,8 @@
 
     <div class="project-card reveal">
       <div class="screenshot-wrapper">
-        <span class="project-num">#3</span>
-        <img class="project-screenshot" src="3.png" alt="VLC Video Bookmarks" loading="lazy">
+        <span class="project-num"></span>
+        <img class="project-screenshot" src="" alt="VLC Video Bookmarks" loading="lazy">
       </div>
       <div class="project-body">
         <div class="project-title">VLC Video Bookmarks Extension</div>
@@ -829,8 +829,8 @@
 
     <div class="project-card reveal">
       <div class="screenshot-wrapper">
-        <span class="project-num">#4</span>
-        <img class="project-screenshot" src="4.png" alt="Quiz Builder Pro" loading="lazy">
+        <span class="project-num"></span>
+        <img class="project-screenshot" src="" alt="Quiz Builder Pro" loading="lazy">
       </div>
       <div class="project-body">
         <div class="project-title">Quiz Builder Pro v2.0</div>
@@ -845,8 +845,8 @@
 
     <div class="project-card reveal">
       <div class="screenshot-wrapper">
-        <span class="project-num">#5</span>
-        <img class="project-screenshot" src="5.png" alt="Web-DLP" loading="lazy">
+        <span class="project-num"></span>
+        <img class="project-screenshot" src="" alt="Web-DLP" loading="lazy">
       </div>
       <div class="project-body">
         <div class="project-title">Web-DLP — медіа-дашборд</div>
@@ -862,8 +862,8 @@
 
     <div class="project-card reveal">
       <div class="screenshot-wrapper">
-        <span class="project-num">#6</span>
-        <img class="project-screenshot" src="6.png" alt="Smart PDF Converter" loading="lazy">
+        <span class="project-num"></span>
+        <img class="project-screenshot" src="" alt="Smart PDF Converter" loading="lazy">
       </div>
       <div class="project-body">
         <div class="project-title">Smart PDF Converter & Cleaner</div>
@@ -877,10 +877,10 @@
       </div>
     </div>
 
-    <div class="project-card reveal" style="grid-column: span 1;">
+    <div class="project-card reveal">
       <div class="screenshot-wrapper">
-        <span class="project-num">#7</span>
-        <img class="project-screenshot" src="7.png" alt="QuizNLM" loading="lazy">
+        <span class="project-num"></span>
+        <img class="project-screenshot" src="" alt="QuizNLM" loading="lazy">
       </div>
       <div class="project-body">
         <div class="project-title">QuizNLM — офлайн тести з NotebookLM</div>
@@ -1028,6 +1028,18 @@
     nav.style.boxShadow = window.scrollY > 20
       ? '0 4px 24px rgba(31,111,235,0.10)'
       : 'none';
+  });
+
+  // Auto numbering and images for projects
+  document.querySelectorAll('.project-card').forEach((card, index) => {
+    const num = index + 1;
+    const numSpan = card.querySelector('.project-num');
+    const imgEl = card.querySelector('.project-screenshot');
+    
+    if (numSpan) numSpan.textContent = `#${num}`;
+    if (imgEl && !imgEl.src) {
+      imgEl.src = `${num}.png`;
+    }
   });
 
   // Hero content fade in on load
