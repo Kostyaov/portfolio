@@ -9,7 +9,7 @@ A collection of real-world tools and automations developed with a **Privacy-Firs
 ---
 
 ## 🌐 Live Demo
-Visit the portfolio at: **[https://jusmilltin-afk.github.io/portfolio/](https://jusmilltin-afk.github.io/portfolio/)**
+Visit the portfolio at: **[https://Kostyaov.github.io/portfolio/](https://Kostyaov.github.io/portfolio/)**
 
 ---
 
@@ -147,7 +147,7 @@ This portfolio is a static web application hosted via **GitHub Pages**.
 ---
 
 ## 🌐 Живе Демо
-Відвідайте портфоліо за посиланням: **[https://jusmilltin-afk.github.io/portfolio/](https://jusmilltin-afk.github.io/portfolio/)**
+Відвідайте портфоліо за посиланням: **[https://Kostyaov.github.io/portfolio/](https://Kostyaov.github.io/portfolio/)**
 
 ---
 
